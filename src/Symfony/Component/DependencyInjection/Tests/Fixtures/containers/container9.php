@@ -41,6 +41,7 @@ $container->getParameterBag()->add(array(
     'baz_class' => 'BazClass',
     'foo_class' => 'FooClass',
     'foo' => 'bar',
+    'foo_baz_service' => 'foo.baz',
 ));
 $container->setAlias('alias_for_foo', 'foo');
 $container->setAlias('alias_for_alias', 'alias_for_foo');
@@ -51,6 +52,11 @@ $container->
     addMethodCall('setBar', array(new Reference('foo2', ContainerInterface::NULL_ON_INVALID_REFERENCE)))->
     addMethodCall('setBar', array(new Reference('foo3', ContainerInterface::IGNORE_ON_INVALID_REFERENCE)))->
     addMethodCall('setBar', array(new Reference('foobaz', ContainerInterface::IGNORE_ON_INVALID_REFERENCE)))
+;
+$container->
+    register('factory_service_parameter', 'Bar')->
+    setFactoryService('%foo_baz_service%')->
+    setFactoryMethod('getInstance')
 ;
 $container->
     register('factory_service', 'Bar')->

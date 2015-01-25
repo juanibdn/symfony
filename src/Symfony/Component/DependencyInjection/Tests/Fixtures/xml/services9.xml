@@ -4,6 +4,7 @@
     <parameter key="baz_class">BazClass</parameter>
     <parameter key="foo_class">FooClass</parameter>
     <parameter key="foo">bar</parameter>
+    <parameter key="foo_baz_service">foo.baz</parameter>
   </parameters>
   <services>
     <service id="foo" class="FooClass" factory-method="getInstance" factory-class="FooClass">
@@ -54,6 +55,7 @@
         <argument type="service" id="foobaz" on-invalid="ignore"/>
       </call>
     </service>
+    <service id="factory_service_parameter" class="Bar" factory-method="getInstance" factory-service="%foo_baz_service%"/>
     <service id="factory_service" class="Bar" factory-method="getInstance" factory-service="foo.baz"/>
     <service id="foo_with_inline" class="Foo">
       <call method="setBar">

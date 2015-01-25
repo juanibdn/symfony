@@ -2,6 +2,7 @@ parameters:
     baz_class: BazClass
     foo_class: FooClass
     foo: bar
+    foo_baz_service: foo.baz
 
 services:
     foo:
@@ -39,6 +40,10 @@ services:
             - [setBar, ['@?foo3']]
             - [setBar, ['@?foobaz']]
 
+    factory_service_parameter:
+        class: Bar
+        factory_method: getInstance
+        factory_service: %foo_baz_service%
     factory_service:
         class: Bar
         factory_method: getInstance

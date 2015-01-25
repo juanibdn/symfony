@@ -30,6 +30,7 @@ class ProjectServiceContainer extends Container
             'baz' => 'getBazService',
             'depends_on_request' => 'getDependsOnRequestService',
             'factory_service' => 'getFactoryServiceService',
+            'factory_service_parameter' => 'getFactoryServiceParameterService',
             'foo' => 'getFooService',
             'foo.baz' => 'getFoo_BazService',
             'foo_bar' => 'getFooBarService',
@@ -106,6 +107,19 @@ class ProjectServiceContainer extends Container
     protected function getFactoryServiceService()
     {
         return $this->services['factory_service'] = $this->get('foo.baz')->getInstance();
+    }
+
+    /**
+     * Gets the 'factory_service_parameter' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Bar A Bar instance.
+     */
+    protected function getFactoryServiceParameterService()
+    {
+        return $this->services['factory_service_parameter'] = $this->get($this->getParameter('foo_baz_service'))->getInstance();
     }
 
     /**
@@ -260,6 +274,7 @@ class ProjectServiceContainer extends Container
             'baz_class' => 'BazClass',
             'foo_class' => 'FooClass',
             'foo' => 'bar',
+            'foo_baz_service' => 'foo.baz',
         );
     }
 }
